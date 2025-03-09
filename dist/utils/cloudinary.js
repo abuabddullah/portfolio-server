@@ -16,7 +16,7 @@ const deleteFromCloudinary = async (imageUrl) => {
     const publicId = (_a = imageUrl.split("/").pop()) === null || _a === void 0 ? void 0 : _a.split(".")[0];
     if (!publicId)
         return;
-    await cloudinary_1.v2.uploader.destroy(`bicycle-shop/${publicId}`);
+    await cloudinary_1.v2.uploader.destroy(`medimart/${publicId}`);
 };
 exports.deleteFromCloudinary = deleteFromCloudinary;
 exports.default = cloudinary_1.v2;

@@ -8,9 +8,7 @@ const medicine_service_1 = require("./medicine.service");
 exports.medicineController = {
     createMedicine: (0, catchAsync_1.catchAsync)(async (req, res) => {
         try {
-            const imageURL = req.file
-                ? req.file.path
-                : "https://i.ibb.co.com/NdXcLBdJ/image.png";
+            const imageURL = req.file ? req.file.path : req.body.imageURL;
             const medicineData = { ...req.body, imageURL };
             const medicine = await medicine_model_1.Medicine.create(medicineData);
             res.status(201).json({
@@ -31,14 +29,12 @@ exports.medicineController = {
             updateData.requiresPrescription =
                 updateData.requiresPrescription.toLowerCase() === "true";
         }
-        if (req.file) {
-            const newImageUrl = req.file.path;
-            const medicine = await medicine_service_1.medicineService.getMedicineById(id);
-            if (medicine === null || medicine === void 0 ? void 0 : medicine.imageURL) {
-                await (0, cloudinary_1.deleteFromCloudinary)(medicine.imageURL);
-            }
-            updateData.imageURL = newImageUrl;
+        const newImageUrl = req.file ? req.file.path : req.body.imageURL;
+        const medicine = await medicine_service_1.medicineService.getMedicineById(id);
+        if (medicine === null || medicine === void 0 ? void 0 : medicine.imageURL) {
+            await (0, cloudinary_1.deleteFromCloudinary)(medicine.imageURL);
         }
+        updateData.imageURL = newImageUrl;
         const updatedMedicine = await medicine_service_1.medicineService.updateMedicine(id, updateData);
         res.status(200).json({
             success: true,

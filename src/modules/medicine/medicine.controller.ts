@@ -7,9 +7,7 @@ import { medicineService } from "./medicine.service";
 export const medicineController = {
   createMedicine: catchAsync(async (req: Request, res: Response) => {
     try {
-      const imageURL = req.file
-        ? req.file.path
-        : "https://i.ibb.co.com/NdXcLBdJ/image.png";
+      const imageURL = req.file ? req.file.path : req.body.imageURL;
 
       const medicineData = { ...req.body, imageURL };
 
@@ -35,16 +33,14 @@ export const medicineController = {
         updateData.requiresPrescription.toLowerCase() === "true";
     }
 
-    if (req.file) {
-      const newImageUrl = req.file.path;
+    const newImageUrl = req.file ? req.file.path : req.body.imageURL;
 
-      const medicine = await medicineService.getMedicineById(id);
-      if (medicine?.imageURL) {
-        await deleteFromCloudinary(medicine.imageURL);
-      }
-
-      updateData.imageURL = newImageUrl;
+    const medicine = await medicineService.getMedicineById(id);
+    if (medicine?.imageURL) {
+      await deleteFromCloudinary(medicine.imageURL);
     }
+
+    updateData.imageURL = newImageUrl;
 
     const updatedMedicine = await medicineService.updateMedicine(
       id,

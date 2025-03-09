@@ -10,7 +10,7 @@ const cloudinary_1 = __importDefault(require("./../utils/cloudinary"));
 const storage = new multer_storage_cloudinary_1.CloudinaryStorage({
     cloudinary: cloudinary_1.default,
     params: async (req, file) => ({
-        folder: "bicycle-shop",
+        folder: "medimart",
         format: file.mimetype.split("/")[1],
         public_id: `${file.fieldname}-${Date.now()}`,
         transformation: [{ width: 500, height: 500, crop: "limit" }],
