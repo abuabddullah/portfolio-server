@@ -73,15 +73,29 @@ export const medicineController = {
       const filters: Record<string, any> = {};
 
       // Handle both array and string cases
+      // if (category) {
+      //   filters.category = Array.isArray(category)
+      //     ? { $in: category }
+      //     : { $in: category.split(",") };
+      // }
+      // if (manufacturer) {
+      //   filters.manufacturer = Array.isArray(manufacturer)
+      //     ? { $in: manufacturer }
+      //     : { $in: manufacturer.split(",") };
+      // }
+
       if (category) {
         filters.category = Array.isArray(category)
           ? { $in: category }
-          : { $in: category.split(",") };
+          : { $in: typeof category === "string" ? category.split(",") : [] };
       }
       if (manufacturer) {
         filters.manufacturer = Array.isArray(manufacturer)
           ? { $in: manufacturer }
-          : { $in: manufacturer.split(",") };
+          : {
+              $in:
+                typeof manufacturer === "string" ? manufacturer.split(",") : [],
+            };
       }
       if (search) {
         filters.name = { $regex: search, $options: "i" }; // Case-insensitive search

@@ -24,13 +24,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-});
-app.use(limiter);
-
 // Routes
 app.use("/api/auth", userRoutes);
 app.use("/api/medicines", medicineRoutes);
@@ -41,7 +34,7 @@ app.use("/api/reviews", reviewRoutes);
 
 // Default route
 app.get("/", (req, res) => {
-  res.send("BikeBazaar API");
+  res.send("Medimart API");
 });
 
 // 404 route
