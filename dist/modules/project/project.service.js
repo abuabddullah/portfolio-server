@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteProject = exports.updateProject = exports.getProjectById = exports.getAllProjects = exports.createProject = void 0;
 const http_status_1 = __importDefault(require("http-status"));
-const project_model_1 = require("./project.model");
 const globalErrorHandler_1 = require("../../middlewares/globalErrorHandler");
+const project_model_1 = require("./project.model");
 // Create a new project
 const createProject = async (projectData) => {
     const newProject = await project_model_1.Project.create(projectData);
@@ -29,7 +29,10 @@ const getAllProjects = async (filters, page = 1, limit = 10) => {
     // Calculate pagination
     const skip = (page - 1) * limit;
     // Execute query
-    const projects = await project_model_1.Project.find(query).sort({ order: 1, createdAt: -1 }).skip(skip).limit(limit);
+    const projects = await project_model_1.Project.find(query)
+        .sort({ order: 1, createdAt: -1 })
+        .skip(skip)
+        .limit(limit);
     const total = await project_model_1.Project.countDocuments(query);
     return {
         projects,

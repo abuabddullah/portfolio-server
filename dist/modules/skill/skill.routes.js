@@ -17,7 +17,7 @@ router.get("/by-category", skill_controller_1.getSkillsByCategoryController);
 router.get("/:id", skill_controller_1.getSkillController);
 // Protected routes
 router.use(auth_middleware_1.protect);
-router.post("/", upload_middleware_1.uploadSkillLogo, (0, validateRequest_1.validateRequest)(skill_zod_1.createSkillZodSchema), skill_controller_1.createSkillController);
+router.post("/", upload_middleware_1.uploadSkillLogo, skill_controller_1.createSkillController);
 router.patch("/:id", upload_middleware_1.uploadSkillLogo, (0, validateRequest_1.validateRequest)(skill_zod_1.updateSkillZodSchema), skill_controller_1.updateSkillController);
 router.delete("/:id", skill_controller_1.deleteSkillController);
 exports.skillRoutes = router;

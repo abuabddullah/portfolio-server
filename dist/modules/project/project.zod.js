@@ -27,7 +27,8 @@ exports.updateProjectZodSchema = zod_1.z.object({
     body: zod_1.z.object({
         title: zod_1.z.string().optional(),
         description: zod_1.z.string().optional(),
-        technologies: zod_1.z.array(zod_1.z.string()).optional(),
+        technologies: zod_1.z.string().optional(),
+        category: zod_1.z.string().optional(),
         liveUrl: zod_1.z.string().url().optional(),
         githubUrlServer: zod_1.z.string().url().optional(),
         githubUrlClient: zod_1.z.string().url().optional(),

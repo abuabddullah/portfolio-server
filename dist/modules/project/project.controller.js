@@ -67,6 +67,13 @@ exports.updateProjectController = (0, catchAsync_1.catchAsync)(async (req, res, 
     if (req.file) {
         req.body.image = req.file.path;
     }
+    if (req.body.technologies) {
+        // Ensure that technologies is always an array
+        req.body.technologies = req.body.technologies
+            .split(",")
+            .map((tech) => tech.trim())
+            .filter((tech) => tech.length > 0); // Optional: removes empty strings if any
+    }
     const updatedProject = await (0, project_service_1.updateProject)(id, req.body);
     res.status(http_status_1.default.OK).json({
         status: "success",

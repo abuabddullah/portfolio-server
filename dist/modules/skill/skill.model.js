@@ -54,6 +54,7 @@ const skillSchema = new mongoose_1.Schema({
     },
     logo: {
         type: String,
+        required: [true, "logo is required"],
     },
     description: {
         type: String,

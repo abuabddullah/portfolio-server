@@ -1,5 +1,5 @@
-import mongoose, { Schema } from "mongoose"
-import type { ISkill } from "./skill.type"
+import mongoose, { Schema } from "mongoose";
+import type { ISkill } from "./skill.type";
 
 const skillSchema = new Schema<ISkill>(
   {
@@ -21,6 +21,7 @@ const skillSchema = new Schema<ISkill>(
     },
     logo: {
       type: String,
+      required: [true, "logo is required"],
     },
     description: {
       type: String,
@@ -32,11 +33,10 @@ const skillSchema = new Schema<ISkill>(
   },
   {
     timestamps: true,
-  },
-)
+  }
+);
 
 // Create indexes for better search performance
-skillSchema.index({ name: "text", category: "text", description: "text" })
+skillSchema.index({ name: "text", category: "text", description: "text" });
 
-export const Skill = mongoose.model<ISkill>("Skill", skillSchema)
-
+export const Skill = mongoose.model<ISkill>("Skill", skillSchema);

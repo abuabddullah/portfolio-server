@@ -8,12 +8,11 @@ const catchAsync_1 = require("../../utils/catchAsync");
 const sendResponse_1 = __importDefault(require("./../../utils/sendResponse"));
 const experience_service_1 = require("./experience.service");
 const createExperience = (0, catchAsync_1.catchAsync)(async (req, res) => {
-    if (req.body.tasks) {
-        // Ensure that tasks is always an array
+    if (req.body.tasks && typeof req.body.tasks === "string") {
         req.body.tasks = req.body.tasks
             .split(",")
-            .map((tech) => tech.trim())
-            .filter((tech) => tech.length > 0); // Optional: removes empty strings if any
+            .map((task) => task.trim())
+            .filter((task) => task.length > 0);
     }
     const result = await experience_service_1.ExperienceService.createExperience(req.body);
     (0, sendResponse_1.default)(res, {
@@ -41,6 +40,12 @@ const getSingleExperience = (0, catchAsync_1.catchAsync)(async (req, res) => {
 });
 const updateExperience = (0, catchAsync_1.catchAsync)(async (req, res) => {
     const { id } = req.params;
+    if (req.body.tasks && typeof req.body.tasks === "string") {
+        req.body.tasks = req.body.tasks
+            .split(",")
+            .map((task) => task.trim())
+            .filter((task) => task.length > 0);
+    }
     const result = await experience_service_1.ExperienceService.updateExperience(id, req.body);
     (0, sendResponse_1.default)(res, {
         success: true,

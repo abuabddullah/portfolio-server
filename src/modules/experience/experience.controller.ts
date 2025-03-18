@@ -4,12 +4,11 @@ import sendResponse from "./../../utils/sendResponse";
 import { ExperienceService } from "./experience.service";
 
 const createExperience = catchAsync(async (req: Request, res: Response) => {
-  if (req.body.tasks) {
-    // Ensure that tasks is always an array
+  if (req.body.tasks && typeof req.body.tasks === "string") {
     req.body.tasks = req.body.tasks
       .split(",")
-      .map((tech: string) => tech.trim())
-      .filter((tech: string) => tech.length > 0); // Optional: removes empty strings if any
+      .map((task: string) => task.trim())
+      .filter((task: string) => task.length > 0);
   }
   const result = await ExperienceService.createExperience(req.body);
   sendResponse(res, {
@@ -40,6 +39,12 @@ const getSingleExperience = catchAsync(async (req: Request, res: Response) => {
 
 const updateExperience = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
+  if (req.body.tasks && typeof req.body.tasks === "string") {
+    req.body.tasks = req.body.tasks
+      .split(",")
+      .map((task: string) => task.trim())
+      .filter((task: string) => task.length > 0);
+  }
   const result = await ExperienceService.updateExperience(id, req.body);
   sendResponse(res, {
     success: true,

@@ -87,6 +87,13 @@ export const updateProjectController = catchAsync(
     if (req.file) {
       req.body.image = req.file.path;
     }
+    if (req.body.technologies) {
+      // Ensure that technologies is always an array
+      req.body.technologies = req.body.technologies
+        .split(",")
+        .map((tech: string) => tech.trim())
+        .filter((tech: string) => tech.length > 0); // Optional: removes empty strings if any
+    }
 
     const updatedProject = await updateProject(id, req.body);
 

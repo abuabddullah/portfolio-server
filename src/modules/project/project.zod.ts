@@ -26,7 +26,8 @@ export const updateProjectZodSchema = z.object({
   body: z.object({
     title: z.string().optional(),
     description: z.string().optional(),
-    technologies: z.array(z.string()).optional(),
+    technologies: z.string().optional(),
+    category: z.string().optional(),
     liveUrl: z.string().url().optional(),
     githubUrlServer: z.string().url().optional(),
     githubUrlClient: z.string().url().optional(),
