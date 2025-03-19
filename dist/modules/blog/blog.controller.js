@@ -70,6 +70,13 @@ exports.updateBlogController = (0, catchAsync_1.catchAsync)(async (req, res, _ne
     if (req.file) {
         req.body.image = req.file.path;
     }
+    if (req.body.tags) {
+        // Ensure that tags is always an array
+        req.body.tags = req.body.tags
+            .split(",")
+            .map((tech) => tech.trim())
+            .filter((tech) => tech.length > 0); // Optional: removes empty strings if any
+    }
     const updatedBlog = await (0, blog_service_1.updateBlog)(id, req.body);
     res.status(http_status_1.default.OK).json({
         status: "success",
