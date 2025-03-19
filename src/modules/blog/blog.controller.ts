@@ -94,6 +94,14 @@ export const updateBlogController = catchAsync(
       req.body.image = req.file.path;
     }
 
+    if (req.body.tags) {
+      // Ensure that tags is always an array
+      req.body.tags = req.body.tags
+        .split(",")
+        .map((tech: string) => tech.trim())
+        .filter((tech: string) => tech.length > 0); // Optional: removes empty strings if any
+    }
+
     const updatedBlog = await updateBlog(id, req.body);
 
     res.status(httpStatus.OK).json({
