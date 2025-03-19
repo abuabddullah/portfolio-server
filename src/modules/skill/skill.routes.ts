@@ -1,16 +1,15 @@
 import express from "express";
+import { uploadSkillLogo } from "../../middlewares/upload.middleware";
+import { validateRequest } from "../../middlewares/validateRequest";
 import {
   createSkillController,
-  getAllSkillsController,
-  getSkillsByCategoryController,
-  getSkillController,
-  updateSkillController,
   deleteSkillController,
+  getAllSkillsController,
+  getSkillController,
+  getSkillsByCategoryController,
+  updateSkillController,
 } from "./skill.controller";
-import { protect } from "../../middlewares/auth.middleware";
-import { validateRequest } from "../../middlewares/validateRequest";
-import { createSkillZodSchema, updateSkillZodSchema } from "./skill.zod";
-import { uploadSkillLogo } from "../../middlewares/upload.middleware";
+import { updateSkillZodSchema } from "./skill.zod";
 
 const router = express.Router();
 
@@ -20,7 +19,7 @@ router.get("/by-category", getSkillsByCategoryController);
 router.get("/:id", getSkillController);
 
 // Protected routes
-router.use(protect);
+// router.use(protect);
 router.post("/", uploadSkillLogo, createSkillController);
 router.patch(
   "/:id",

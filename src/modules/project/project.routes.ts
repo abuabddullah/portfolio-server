@@ -18,7 +18,7 @@ router.get("/", getAllProjectsController);
 router.get("/:id", getProjectController);
 
 // Protected routes
-router.use(protect);
+// router.use(protect);
 router.post("/", uploadProjectImage, createProjectController);
 router.patch("/:id", updateProjectController);
 router.delete("/:id", deleteProjectController);

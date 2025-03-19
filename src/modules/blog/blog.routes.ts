@@ -15,7 +15,7 @@ router.get("/", getAllBlogsController);
 router.get("/:id", getBlogController);
 
 // Protected routes
-router.use(protect);
+// router.use(protect);
 router.post("/", createBlogController);
 router.patch("/:id", updateBlogController);
 router.delete("/:id", deleteBlogController);
